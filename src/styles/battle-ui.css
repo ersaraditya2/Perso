@@ -1,0 +1,298 @@
+/* Battle UI Styles */
+
+/* Round Indicator */
+.battle-ui {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.round-indicator {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 24px;
+  background: var(--retro-bg-mid);
+  border: 3px solid var(--retro-yellow);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.round-text {
+  font-size: 14px;
+  color: var(--retro-yellow);
+  text-shadow: 2px 2px 0 var(--retro-bg-dark);
+}
+
+/* Battle Timer */
+.battle-timer {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 80px;
+  height: 80px;
+  background: var(--retro-bg-mid);
+  border: 4px solid var(--retro-yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 0 0 2px var(--retro-bg-dark),
+    0 0 20px rgba(255, 215, 0, 0.4);
+  animation: timerPulse 1s ease-in-out infinite;
+}
+
+.timer-text {
+  font-size: 32px;
+  text-shadow: 2px 2px 0 var(--retro-bg-dark);
+}
+
+@keyframes timerPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Character Portrait */
+.character-portrait {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  border: 4px solid;
+  background: var(--retro-bg-dark);
+  box-shadow: 0 0 20px currentColor;
+  z-index: 15;
+}
+
+.portrait-inner {
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  animation: portraitGlow 2s ease-in-out infinite;
+}
+
+@keyframes portraitGlow {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+/* Super Meter */
+.super-meter {
+  width: 100%;
+  height: 6px;
+  background: var(--retro-bg-dark);
+  border: 1px solid var(--retro-primary);
+  margin-top: 3px;
+}
+
+.super-meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--retro-primary) 0%, var(--retro-yellow) 100%);
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px var(--retro-primary);
+  animation: superGlow 1s ease-in-out infinite;
+}
+
+@keyframes superGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--retro-primary);
+  }
+  50% {
+    box-shadow: 0 0 15px var(--retro-primary);
+  }
+}
+
+/* Floating Damage Numbers */
+.damage-number {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  color: var(--retro-accent);
+  text-shadow: 
+    2px 2px 0 var(--retro-bg-dark),
+    0 0 10px var(--retro-accent);
+  animation: floatUp 1s ease-out forwards;
+  z-index: 100;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-50px) scale(1.5);
+  }
+}
+
+/* Hit Spark Effect */
+.hit-spark {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 16px;
+  color: var(--retro-yellow);
+  text-shadow: 
+    2px 2px 0 var(--retro-accent),
+    0 0 20px var(--retro-yellow);
+  animation: sparkBurst 0.6s ease-out forwards;
+  z-index: 50;
+}
+
+@keyframes sparkBurst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2) rotate(10deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8) rotate(-5deg);
+  }
+}
+
+/* K.O. Indicator */
+.ko-indicator {
+  position: absolute;
+  top: -140px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: var(--retro-accent);
+  padding: 4px 12px;
+  background: var(--retro-bg-dark);
+  border: 2px solid var(--retro-accent);
+  animation: dangerBlink 0.5s ease-in-out infinite;
+  z-index: 20;
+  box-shadow: 0 0 20px var(--retro-accent);
+}
+
+@keyframes dangerBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Stage Background Particles */
+.stage-bg-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  opacity: 0.3;
+}
+
+.bg-particle {
+  position: absolute;
+  top: -50px;
+  width: 4px;
+  height: 50px;
+  background: linear-gradient(180deg, transparent 0%, var(--retro-primary) 100%);
+  animation: particleFall 8s linear infinite;
+}
+
+.stage-bg-effect[data-stage=\"1\"] .bg-particle {
+  background: linear-gradient(180deg, transparent 0%, var(--retro-primary) 100%);
+}
+
+.stage-bg-effect[data-stage=\"2\"] .bg-particle {
+  background: linear-gradient(180deg, transparent 0%, var(--retro-accent) 100%);
+}
+
+.stage-bg-effect[data-stage=\"3\"] .bg-particle {
+  background: linear-gradient(180deg, transparent 0%, var(--retro-yellow) 100%);
+}
+
+.stage-bg-effect[data-stage=\"4\"] .bg-particle {
+  background: linear-gradient(180deg, transparent 0%, var(--retro-green) 100%);
+}
+
+.stage-bg-effect[data-stage=\"5\"] .bg-particle {
+  background: linear-gradient(180deg, transparent 0%, var(--retro-accent-orange) 100%);
+}
+
+@keyframes particleFall {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) translateX(20px);
+    opacity: 0;
+  }
+}
+
+/* Attacking Animation */
+.fighter-character.attacking .character-sprite {
+  animation: attackPunch 0.6s ease-out;
+}
+
+@keyframes attackPunch {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  30% {
+    transform: translateY(-10px) translateX(20px);
+  }
+  60% {
+    transform: translateY(0) translateX(-10px);
+  }
+}
+
+/* Combo Spark Effect */
+.combo-spark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, var(--retro-yellow) 0%, transparent 70%);
+  animation: comboSpark 0.5s ease-out infinite;
+  opacity: 0.5;
+}
+
+@keyframes comboSpark {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
+    opacity: 0;
+  }
+}
+

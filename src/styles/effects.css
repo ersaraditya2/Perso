@@ -1,0 +1,306 @@
+/* Fighting Game Effects */
+
+/* Character Health Bar */
+.character-nameplate {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  text-align: center;
+  z-index: 10;
+}
+
+.character-health-bar {
+  width: 100%;
+  height: 12px;
+  background: var(--retro-bg-dark);
+  border: 2px solid var(--retro-yellow);
+  margin-top: 4px;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.character-health-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--retro-accent) 0%, var(--retro-yellow) 50%, var(--retro-green) 100%);
+  transition: width 0.5s ease;
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* Special Attack Effect */
+.special-attack {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.energy-blast {
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, var(--retro-yellow) 0%, var(--retro-accent) 50%, transparent 70%);
+  border-radius: 50%;
+  animation: blastExpand 0.5s ease-out;
+  box-shadow: 
+    0 0 20px var(--retro-yellow),
+    0 0 40px var(--retro-accent);
+}
+
+@keyframes blastExpand {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+/* Victory Effect */
+.victory-effect {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: victoryBounce 1s ease-out infinite;
+  z-index: 20;
+}
+
+@keyframes victoryBounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-20px) scale(1.2);
+  }
+}
+
+.fighter-character.victory .character-sprite {
+  animation: victoryPose 1s ease-in-out infinite;
+}
+
+@keyframes victoryPose {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(-5deg);
+  }
+}
+
+/* Stage Intro Overlay */
+.stage-intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: introFadeOut 2s ease-out forwards;
+}
+
+.stage-intro-content {
+  text-align: center;
+}
+
+.stage-intro-number {
+  font-size: 48px;
+  margin-bottom: 20px;
+  animation: introSlideIn 0.5s ease-out;
+  text-shadow: 
+    3px 3px 0 var(--retro-accent),
+    0 0 30px var(--retro-yellow);
+}
+
+.stage-intro-fight {
+  font-size: 72px;
+  animation: fightScale 0.8s ease-out 0.5s forwards;
+  transform: scale(0);
+  text-shadow: 
+    4px 4px 0 var(--retro-bg-dark),
+    0 0 40px var(--retro-accent);
+}
+
+@keyframes introFadeOut {
+  0%, 80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@keyframes introSlideIn {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fightScale {
+  0% {
+    transform: scale(0) rotate(-180deg);
+  }
+  50% {
+    transform: scale(1.3) rotate(10deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Battle Indicators */
+.battle-indicators {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.indicator-line {
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--retro-primary), transparent);
+  animation: indicatorPulse 1s ease-in-out infinite;
+}
+
+.indicator-line:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+@keyframes indicatorPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scaleX(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+/* Combo Counter */
+.combo-counter {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 300;
+  animation: comboAppear 0.3s ease-out;
+}
+
+.combo-text {
+  font-size: 24px;
+  color: var(--retro-yellow);
+  text-shadow: 
+    2px 2px 0 var(--retro-accent),
+    0 0 20px var(--retro-yellow);
+  animation: comboPulse 0.5s ease-in-out infinite;
+}
+
+@keyframes comboAppear {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes comboPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Hit Effect - can be triggered on interactions */
+.hit-effect {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 500;
+}
+
+.hit-flash {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, white 0%, transparent 70%);
+  animation: hitFlash 0.2s ease-out;
+}
+
+@keyframes hitFlash {
+  0% {
+    opacity: 1;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+/* Power Level Indicator */
+.power-level {
+  position: absolute;
+  top: -80px;
+  right: -20px;
+  padding: 4px 8px;
+  background: var(--retro-bg-mid);
+  border: 2px solid var(--retro-accent);
+  font-size: 10px;
+  color: var(--retro-accent);
+  box-shadow: 0 0 10px var(--retro-accent);
+}
+
+/* Character Shadow */
+.fighter-character::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 20px;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.5) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+/* Stage Effects - Different per stage */
+.stage-container[data-stage="1"] {
+  background: radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.1) 0%, transparent 50%);
+}
+
+.stage-container[data-stage="2"] {
+  background: radial-gradient(circle at 80% 50%, rgba(255, 51, 102, 0.1) 0%, transparent 50%);
+}
+
+.stage-container[data-stage="3"] {
+  background: radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+}
+
+.stage-container[data-stage="4"] {
+  background: radial-gradient(circle at 30% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%);
+}
+
+.stage-container[data-stage="5"] {
+  background: radial-gradient(circle at 70% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+}
+
+

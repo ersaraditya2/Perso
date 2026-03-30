@@ -1,0 +1,275 @@
+/* Fighting Game Character Animations */
+
+.fighter-character {
+  position: fixed;
+  bottom: 0;
+  width: 120px;
+  height: 180px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.fighter-character.left {
+  left: 50px;
+  animation: fighterEnterLeft 0.8s ease-out;
+}
+
+.fighter-character.right {
+  right: 50px;
+  transform: scaleX(-1);
+  animation: fighterEnterRight 0.8s ease-out;
+}
+
+/* Character Sprite Body */
+.character-sprite {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: idleStance 2s ease-in-out infinite;
+}
+
+/* Head */
+.sprite-head {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: var(--retro-primary);
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 
+    inset 0 0 10px rgba(255, 255, 255, 0.3),
+    0 0 20px var(--retro-primary);
+}
+
+/* Eyes */
+.sprite-eyes {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sprite-eye {
+  width: 8px;
+  height: 8px;
+  background: var(--retro-accent);
+  box-shadow: 0 0 5px var(--retro-accent);
+  animation: eyeGlow 1.5s ease-in-out infinite;
+}
+
+/* Body */
+.sprite-body {
+  position: absolute;
+  width: 50px;
+  height: 60px;
+  background: linear-gradient(180deg, var(--retro-secondary) 0%, var(--retro-primary) 100%);
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 
+    inset 0 0 10px rgba(255, 255, 255, 0.2),
+    0 0 15px var(--retro-primary);
+}
+
+/* Arms */
+.sprite-arms {
+  position: absolute;
+  top: 55px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 40px;
+}
+
+.sprite-arm {
+  position: absolute;
+  width: 15px;
+  height: 50px;
+  background: var(--retro-primary);
+  box-shadow: 0 0 10px var(--retro-primary);
+}
+
+.sprite-arm.left {
+  left: 0;
+  transform: rotate(-15deg);
+  animation: armSwingLeft 2s ease-in-out infinite;
+}
+
+.sprite-arm.right {
+  right: 0;
+  transform: rotate(15deg);
+  animation: armSwingRight 2s ease-in-out infinite;
+}
+
+/* Legs */
+.sprite-legs {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sprite-leg {
+  width: 18px;
+  height: 70px;
+  background: linear-gradient(180deg, var(--retro-secondary) 0%, var(--retro-primary) 100%);
+  box-shadow: 0 0 10px var(--retro-primary);
+}
+
+/* Energy Aura */
+.energy-aura {
+  position: absolute;
+  width: 140px;
+  height: 200px;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 3px solid var(--retro-yellow);
+  border-radius: 50%;
+  opacity: 0;
+  animation: energyPulse 3s ease-in-out infinite;
+  box-shadow: 
+    0 0 20px var(--retro-yellow),
+    inset 0 0 20px var(--retro-yellow);
+}
+
+/* Character Types - Different Colors */
+.fighter-character[data-type="fighter1"] .sprite-head,
+.fighter-character[data-type="fighter1"] .sprite-body,
+.fighter-character[data-type="fighter1"] .sprite-arm,
+.fighter-character[data-type="fighter1"] .sprite-leg {
+  background: var(--retro-primary);
+  box-shadow: 0 0 15px var(--retro-primary);
+}
+
+.fighter-character[data-type="fighter2"] .sprite-head,
+.fighter-character[data-type="fighter2"] .sprite-body,
+.fighter-character[data-type="fighter2"] .sprite-arm,
+.fighter-character[data-type="fighter2"] .sprite-leg {
+  background: var(--retro-accent);
+  box-shadow: 0 0 15px var(--retro-accent);
+}
+
+.fighter-character[data-type="fighter3"] .sprite-head,
+.fighter-character[data-type="fighter3"] .sprite-body,
+.fighter-character[data-type="fighter3"] .sprite-arm,
+.fighter-character[data-type="fighter3"] .sprite-leg {
+  background: var(--retro-yellow);
+  box-shadow: 0 0 15px var(--retro-yellow);
+}
+
+.fighter-character[data-type="fighter4"] .sprite-head,
+.fighter-character[data-type="fighter4"] .sprite-body,
+.fighter-character[data-type="fighter4"] .sprite-arm,
+.fighter-character[data-type="fighter4"] .sprite-leg {
+  background: var(--retro-green);
+  box-shadow: 0 0 15px var(--retro-green);
+}
+
+.fighter-character[data-type="fighter5"] .sprite-head,
+.fighter-character[data-type="fighter5"] .sprite-body,
+.fighter-character[data-type="fighter5"] .sprite-arm,
+.fighter-character[data-type="fighter5"] .sprite-leg {
+  background: var(--retro-accent-orange);
+  box-shadow: 0 0 15px var(--retro-accent-orange);
+}
+
+/* Opponent - Darker versions */
+.fighter-character[data-type*="opponent"] .sprite-head,
+.fighter-character[data-type*="opponent"] .sprite-body,
+.fighter-character[data-type*="opponent"] .sprite-arm,
+.fighter-character[data-type*="opponent"] .sprite-leg {
+  filter: brightness(0.6);
+  opacity: 0.8;
+}
+
+/* Animations */
+@keyframes fighterEnterLeft {
+  0% {
+    transform: translateX(-200px) translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fighterEnterRight {
+  0% {
+    transform: scaleX(-1) translateX(-200px) translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleX(-1) translateX(0) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes idleStance {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes armSwingLeft {
+  0%, 100% {
+    transform: rotate(-15deg);
+  }
+  50% {
+    transform: rotate(-25deg);
+  }
+}
+
+@keyframes armSwingRight {
+  0%, 100% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(25deg);
+  }
+}
+
+@keyframes eyeGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--retro-accent);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 15px var(--retro-accent);
+    opacity: 0.7;
+  }
+}
+
+@keyframes energyPulse {
+  0%, 100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.8);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translateX(-50%) scale(1.1);
+  }
+}
+
+/* Stage Transitions */
+.stage-container {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.stage-container.transitioning {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
