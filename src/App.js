@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+// import { ChevronLeft, ChevronRight } from 'lucide-react'; // hapus karena tidak digunakan
 import './App.css';
 import './styles/retro.css';
 import './styles/characters.css';
@@ -41,47 +41,35 @@ function App() {
 
   const goToStage = (stageIndex) => {
     if (stageIndex < 0 || stageIndex >= stages.length || transitioning) return;
-    
     setTransitioning(true);
     setComboCount(prev => prev + 1);
-    
+
     setTimeout(() => {
       setCurrentStage(stageIndex);
       setTransitioning(false);
-      
-      if (stageIndex > 0) {
-        setShowIntro(true);
-      }
+      if (stageIndex > 0) setShowIntro(true);
     }, 300);
   };
 
   const nextStage = () => {
-    if (currentStage < stages.length - 1) {
-      goToStage(currentStage + 1);
-    }
+    if (currentStage < stages.length - 1) goToStage(currentStage + 1);
   };
 
   const prevStage = () => {
-    if (currentStage > 0) {
-      goToStage(currentStage - 1);
-    }
+    if (currentStage > 0) goToStage(currentStage - 1);
   };
 
-  // Keyboard navigation
+  // Keyboard navigation (fix dependency warning)
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!gameStarted || currentStage === 0) return;
-      
-      if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') {
-        nextStage();
-      } else if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
-        prevStage();
-      }
+      if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') nextStage();
+      else if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') prevStage();
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [gameStarted, currentStage, transitioning]);
+  }, [gameStarted, currentStage, transitioning, nextStage, prevStage]); // tambah nextStage & prevStage
 
   const CurrentStageComponent = stages[currentStage].component;
   const currentCharacter = stages[currentStage].character;
@@ -89,7 +77,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* Combo Counter */}
       {comboCount > 1 && currentStage > 0 && (
         <div className="combo-counter">
           <div className="pixel-font combo-text">{comboCount} COMBO!</div>
@@ -102,10 +89,7 @@ function App() {
           <CurrentStageComponent onStart={handleStart} />
         ) : (
           <>
-            {/* Battle UI */}
             <BattleUI stageNumber={currentStage} />
-
-            {/* Stage Intro Animation */}
             {showIntro && (
               <StageIntro 
                 stageName={currentStageName} 
@@ -113,26 +97,13 @@ function App() {
                 key={currentStage}
               />
             )}
-
             <CurrentStageComponent />
-            
-            {/* Fighter Characters */}
             {currentCharacter && (
               <>
-                <FighterCharacter 
-                  type={currentCharacter} 
-                  position="left"
-                  stageId={currentStage}
-                />
-                <FighterCharacter 
-                  type={`${currentCharacter}-opponent`} 
-                  position="right"
-                  stageId={currentStage}
-                />
+                <FighterCharacter type={currentCharacter} position="left" stageId={currentStage} />
+                <FighterCharacter type={`${currentCharacter}-opponent`} position="right" stageId={currentStage} />
               </>
             )}
-            
-            {/* Stage Navigation */}
             <StageNavigation
               currentStage={currentStage}
               totalStages={stages.length - 1}
